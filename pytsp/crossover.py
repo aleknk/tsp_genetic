@@ -1,8 +1,6 @@
 import random
-import numpy as np
 from pytsp.individual import Individual
 
-    
 def get_child(parent1,parent2,method="OX"):
     """
     Generates a child Individual using the specified crossover method.
