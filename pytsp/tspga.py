@@ -6,28 +6,27 @@ from pytsp.individual import Individual
 from pytsp.selection import select_from_population
 
 import matplotlib.pyplot as plt
-import matplotlib.style as style
 import seaborn as sns
+
+from matplotlib.axes import Axes
+from typing import Tuple, Optional
 
 class TSPGA:
     """
     A class to solve the Traveling Salesman Problem (TSP) using a Genetic Algorithm (GA).
     """
 
-    def __init__(self, distance_matrix):
-        """
-        Initializes the TSPGA class.
-
-        Parameters:
-        - distance_matrix (list of lists): A 2D list representing distances between cities.
-        """
+    def __init__(self, distance_matrix: np.ndarray) -> None:    
         self.distance_matrix = distance_matrix
         
-    def run(self, population_size, num_generations,
-            tournament_size=5,
-            crossover_method="MP", 
-            mutation_rate=0.25, num_swaps=2,
-            max_no_convergence=10):
+    def run(self, 
+            population_size: int, 
+            num_generations: int,
+            tournament_size: int = 5,
+            crossover_method: str = "MP", 
+            mutation_rate: float = 0.25, 
+            num_swaps: int = 2,
+            max_no_convergence: int = 10) -> Tuple[Individual, np.ndarray]:
         
         """
         Runs the genetic algorithm to solve the TSP problem.
@@ -108,9 +107,17 @@ class TSPGA:
         
         return self.best_individual, self.fitness_values
 
-    def run_multi(self, population_size, num_generations, tournament_size=5, 
-                  crossover_method="MP", mutation_rate=0.25, num_swaps=2, max_no_convergence=10,
-                  n_starts=10, n_jobs=1):
+    def run_multi(self, 
+                  population_size: int, 
+                  num_generations: int, 
+                  tournament_size: int = 5, 
+                  crossover_method: str = "MP", 
+                  mutation_rate: float = 0.25, 
+                  num_swaps: int = 2, 
+                  max_no_convergence: int = 10,
+                  n_starts: int = 10, 
+                  n_jobs: int = 1) -> Tuple[Individual, np.ndarray]:
+        
         """
         Executes multiple runs of the genetic algorithm in parallel and returns the best solution.
 
@@ -155,7 +162,7 @@ class TSPGA:
             
         return self.best_individual, self.fitness_values
 
-    def plot_fitness_curves(self, ax=None):
+    def plot_fitness_curves(self, ax: Optional[Axes] = None) -> None:
         """
         Plots the fitness curves of the genetic algorithm runs.
         
@@ -193,9 +200,6 @@ class TSPGA:
             
             # Set the title for the plot with a single run
             ax.set_title('Fitness Curve for Single Run')
-
-        # Uncomment to add a legend (useful when plotting multiple runs)
-        # ax.legend(loc='best')
 
         # Set the x and y axis labels
         ax.set_xlabel('Generation')

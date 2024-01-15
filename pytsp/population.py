@@ -4,26 +4,21 @@ import random
 from pytsp.individual import Individual
 from pytsp.crossover import get_child
 
+from typing import List, Optional
+
 class Population:
     """
     Represents a population of individuals in a genetic algorithm.
     """
 
-    def __init__(self, population_size, tour_length):
-        """
-        Initializes a new population with a given size and tour length.
-
-        Parameters:
-        - population_size (int): The size of the population.
-        - tour_length (int): The length of the tour for each individual.
-        """
-        self.population_size = population_size
-        self.tour_length = tour_length
-        self.individuals = []  # List to store the individuals in the population
-        self.individuals_fitnesses = []  # List to store the fitnesses of the individuals
-        self.distance_matrix = None  # Distance matrix for calculating fitness
+    def __init__(self, population_size: int, tour_length: int) -> None:
+        self.population_size: int = population_size
+        self.tour_length: int = tour_length
+        self.individuals: List[Individual] = []
+        self.individuals_fitnesses: List[float] = []
+        self.distance_matrix: Optional[np.ndarray] = None
         
-    def initialize_population(self, seed=42):
+    def initialize_population(self, seed: int = 42) -> None:
         """
         Initializes the population by generating random individuals.
 
@@ -41,7 +36,7 @@ class Population:
             self.individuals.append(individual)
         np.random.seed()
         
-    def set_distance_matrix(self, distance_matrix):
+    def set_distance_matrix(self, distance_matrix: np.ndarray) -> None:
         """
         Sets the distance matrix for calculating fitness.
 
@@ -53,7 +48,7 @@ class Population:
         """
         self.distance_matrix = distance_matrix
 
-    def calculate_population_fitness(self):
+    def calculate_population_fitness(self) -> None:
         """
         Calculates the fitness of each individual in the population.
 
@@ -65,7 +60,7 @@ class Population:
 
         self.individuals_fitnesses = [individual.fitness for individual in self.individuals]
 
-    def crossover(self, selected_individuals, method="OX"):
+    def crossover(self, selected_individuals: List[Individual], method: str = "OX") -> List[Individual]:
         """
         Performs crossover between selected individuals to create offspring for the next generation.
 
@@ -89,7 +84,7 @@ class Population:
 
         return offspring
 
-    def mutate_population(self, mutation_rate, num_swaps=2):
+    def mutate_population(self, mutation_rate: float, num_swaps: int = 2) -> None:
         """
         Mutates the individuals in the population based on a given mutation rate.
 
@@ -104,7 +99,7 @@ class Population:
             if np.random.rand() < mutation_rate:
                 individual.mutate(num_swaps=num_swaps)
 
-    def get_best_individual(self):
+    def get_best_individual(self) -> Individual:
         """
         Returns the best individual in the population.
 
@@ -113,7 +108,7 @@ class Population:
         """
         return min(self.individuals, key=lambda x: x.fitness)
 
-    def get_best_fitness(self):
+    def get_best_fitness(self) -> float:
         """
         Returns the fitness of the best individual in the population.
 

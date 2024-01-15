@@ -1,7 +1,8 @@
 import random
 from pytsp.individual import Individual
+from typing import Tuple
 
-def get_child(parent1,parent2,method="OX"):
+def get_child(parent1: Individual, parent2: Individual, method: str = "OX") -> Individual:
     """
     Generates a child Individual using the specified crossover method.
 
@@ -20,7 +21,7 @@ def get_child(parent1,parent2,method="OX"):
         return cycle_crossover(parent1,parent2)
 
 
-def cycle_crossover(parent1, parent2):
+def cycle_crossover(parent1: Individual, parent2: Individual) -> Individual:
     """
     Performs Cycle Crossover (CX) between two parent Individuals.
 
@@ -52,7 +53,7 @@ def cycle_crossover(parent1, parent2):
 
     return Individual(child_tour)
 
-def order_crossover(parent1, parent2):
+def order_crossover(parent1: Individual, parent2: Individual) -> Individual:
     """
     Performs Order Crossover (OX) between two parent Individuals.
 

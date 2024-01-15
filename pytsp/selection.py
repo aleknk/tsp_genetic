@@ -1,6 +1,9 @@
 import numpy as np
+from typing import List
+from pytsp.individual import Individual
+from pytsp.population import Population 
 
-def select_from_population(population, method="tournament", tournament_size=10):
+def select_from_population(population: Population, method: str = "tournament", tournament_size: int = 10) -> List[Individual]:
     """
     Selects individuals from a population using the specified selection method.
 
@@ -23,7 +26,7 @@ def select_from_population(population, method="tournament", tournament_size=10):
         raise ValueError(f"Unrecognized selection method: {method}")
 
 
-def tournament_selection(population, tournament_size):
+def tournament_selection(population: Population, tournament_size: int) -> List[Individual]:
     """
     Performs Tournament Selection on a population of Individuals.
 

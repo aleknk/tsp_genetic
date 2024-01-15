@@ -1,11 +1,12 @@
 import numpy as np
 import pandas as pd
 from scipy.spatial import distance_matrix
-
 import matplotlib.pyplot as plt
 import seaborn as sns
+from typing import List, Optional
+from matplotlib.axes import Axes
 
-def generate_cities(n, min_val=0, max_val=100):
+def generate_cities(n: int, min_val: int = 0, max_val: int = 100) -> np.ndarray:
     """
     Generate a list of random city coordinates.
 
@@ -32,10 +33,14 @@ def generate_cities(n, min_val=0, max_val=100):
     
     return points
 
-def get_distance_matrix(cities):
+def get_distance_matrix(cities: np.ndarray) -> np.ndarray:
     return distance_matrix(cities,cities)
 
-def plot_cities(cities, start_city_idx=0, tour=None, ax=None, fitness=None):
+def plot_cities(cities: np.ndarray, 
+                start_city_idx: int = 0, 
+                tour: Optional[List[int]] = None, 
+                ax: Optional[Axes] = None, 
+                fitness: Optional[float] = None) -> None:
     """
     Plot the given cities on a 2D plane. Optionally, a tour can be provided 
     to visualize the path connecting these cities.

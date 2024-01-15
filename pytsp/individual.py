@@ -1,12 +1,13 @@
 import numpy as np
 import random
+from typing import List
 
 class Individual:
     """
     Represents an individual in a genetic algorithm population.
     """
 
-    def __init__(self, tour):
+    def __init__(self, tour: List[int]):
         """
         Initializes a new individual with a given tour.
 
@@ -14,8 +15,8 @@ class Individual:
         - tour (list): A list representing the order of cities in the tour.
         """
         self.tour = tour
-
-    def calculate_fitness(self, distance_matrix):
+        
+    def calculate_fitness(self, distance_matrix: np.ndarray) -> None:
         """
         Calculates the fitness of the individual based on a given distance matrix.
 
@@ -38,7 +39,7 @@ class Individual:
         self.fitness += distance_matrix[tour_array[-1], tour_array[0]]
         
 
-    def mutate(self, num_swaps=1):
+    def mutate(self, num_swaps: int = 1) -> None:
         """
         Mutates the individual by swapping a given number of cities in the tour,
         excluding the first city.
